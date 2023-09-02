@@ -20,11 +20,11 @@ public class AppUtil {
         return scanner;
     }
 
-    public boolean compareDates(Bids b1, Bids b2) throws TiedResultException{
+    public boolean compareDates(Bids b1, Bids b2) throws TiedResultException {
 
         int compared = b1.getTimestamp().compareTo(b2.getTimestamp());
 
-        if(compared > 0) return false;
+        if (compared > 0) return false;
         else if (compared == 0) {
             throw new TiedResultException();
         }
@@ -68,8 +68,7 @@ public class AppUtil {
         for (Integer bid : bids.getBidList()) {
             if (bid < minBid) {
                 minBid = bid;
-            }
-            else if (bid > maxBid) {
+            } else if (bid > maxBid) {
                 maxBid = bid;
             }
         }

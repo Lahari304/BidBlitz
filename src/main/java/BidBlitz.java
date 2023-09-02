@@ -21,7 +21,7 @@ public class BidBlitz {
         while (state) {
 //            String[] input = appUtil.getScanner().nextLine().split(" ");
             String[] input = s[K].split(" ");
-            System.out.println("\n"+s[K]);
+            System.out.println("\n" + s[K]);
             String command = input[0];
             switch (command) {
                 case "ADD_MEMBER":

@@ -11,7 +11,8 @@ public class WinnerRepo {
     private static WinnerRepo INSTANCE = new WinnerRepo();
 
     private static Map<Event, Member> winners;
-    private WinnerRepo(){
+
+    private WinnerRepo() {
 
     }
 
@@ -20,7 +21,7 @@ public class WinnerRepo {
     }
 
     public Map<Event, Member> getWinners() {
-        if(winners == null){
+        if (winners == null) {
             winners = new HashMap<>();
         }
         return winners;

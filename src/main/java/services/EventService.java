@@ -19,11 +19,10 @@ public class EventService {
     AppUtil appUtil = new AppUtil();
 
     public void addEvent(Integer id, String eventName, String prizeName, String date) {
-        try{
+        try {
             isDateAvailable(date);
-        }
-        catch (DateNotAvailableException e){
-            System.out.println(e.getMessage()+date);
+        } catch (DateNotAvailableException e) {
+            System.out.println(e.getMessage() + date);
         }
         Event newEvent = new Event(id, eventName, prizeName, date);
         eventRepo.getEventMap().put(id, newEvent);
@@ -45,7 +44,7 @@ public class EventService {
 
     public void submitBid(Integer memId, Integer eventId, List<Integer> bids) {
         try {
-            if(bids.size() > 5 || !appUtil.areUnique(bids))
+            if (bids.size() > 5 || !appUtil.areUnique(bids))
                 throw new TooManyBidsException();
 
             Event event = getEvent(eventId);
@@ -56,7 +55,7 @@ public class EventService {
 
             Bids bidObj = appUtil.updateBids(new Bids(bids));
 
-            if(bidObj.getMaxBid() > member.getSuperCoins())
+            if (bidObj.getMaxBid() > member.getSuperCoins())
                 throw new YoureBrokeException();
 
             event.getRegisteredMembers().remove(member);
@@ -80,6 +79,7 @@ public class EventService {
             System.out.println(e.getMessage() + eventId);
         }
     }
+
     private Event getEvent(Integer eventId) throws EventNotFoundException {
         Event event = eventRepo.getEventMap().get(eventId);
         if (event == null) throw new EventNotFoundException();
@@ -90,17 +90,16 @@ public class EventService {
         Integer lowestValue = Integer.MAX_VALUE;
         Bids lowestBids = null;
         Member winner = null;
-        Map<Member,Bids> map = event.getRegisteredMembers();
+        Map<Member, Bids> map = event.getRegisteredMembers();
 
         for (Member member : map.keySet()) {
 
             Bids bids = map.get(member);
-            if(lowestValue > bids.getMinBid()){
+            if (lowestValue > bids.getMinBid()) {
                 lowestValue = bids.getMinBid();
                 lowestBids = bids;
                 winner = member;
-            }
-            else if(lowestValue.equals(bids.getMinBid()) && lowestBids!=null && appUtil.compareDates(lowestBids, bids)){
+            } else if (lowestValue.equals(bids.getMinBid()) && lowestBids != null && appUtil.compareDates(lowestBids, bids)) {
                 lowestBids = bids;
                 winner = member;
             }
@@ -117,8 +116,8 @@ public class EventService {
     }
 
     private void isDateAvailable(String s) throws DateNotAvailableException {
-        for(Event event: eventRepo.getEventMap().values()){
-            if(event.getDate().equals(s)){
+        for (Event event : eventRepo.getEventMap().values()) {
+            if (event.getDate().equals(s)) {
                 throw new DateNotAvailableException();
             }
         }

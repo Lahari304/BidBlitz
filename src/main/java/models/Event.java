@@ -21,10 +21,11 @@ public class Event {
     }
 
     public Map<Member, Bids> getRegisteredMembers() {
-        if(this.registeredMembers == null)
+        if (this.registeredMembers == null)
             this.registeredMembers = new HashMap<>();
         return registeredMembers;
     }
+
     public Integer getEventId() {
         return eventId;
     }
